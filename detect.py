@@ -107,7 +107,7 @@ def detect(save_img=False):
                 p, s, im0 = path, '', im0s
 
             save_path = str(Path(out) / Path(p).name)
-            txt_path = str(Path(out) / Path(p).stem) + ('_%g' % dataset.frame if dataset.mode == 'video' else '')
+            txt_path = str(Path(out) / Path(p).stem) + (f'_{dataset.frame:010d}'  if dataset.mode == 'video' else '')
             org_img_path = f'{txt_path}.jpg'
             cv2.imwrite(org_img_path, im0)
 
