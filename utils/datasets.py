@@ -89,6 +89,7 @@ class LoadImages:  # for inference
         ni, nv = len(images), len(videos)
 
         self.seek_time = 0
+        self.frame_time = -1
         self.expect_fps = expect_fps
         self.img_size = img_size
         self.files = images + videos
@@ -115,9 +116,8 @@ class LoadImages:  # for inference
             # Read video
             self.mode = 'video'
 
-            frame_time = -1
             # Skip frames based on "expect_fps"
-            while frame_time < self.seek_time * 1000:
+            while self.frame_time < self.seek_time * 1000:
                 ret_val, img0 = self.cap.read()
                 if not ret_val:
                     self.count += 1
@@ -130,7 +130,7 @@ class LoadImages:  # for inference
                         ret_val, img0 = self.cap.read()
 
                 self.frame += 1
-                frame_time = self.cap.get(cv2.CAP_PROP_POS_MSEC)
+                self.frame_time = self.cap.get(cv2.CAP_PROP_POS_MSEC)
 
             print('video %g/%g (%g/%g) %s: ' % (self.count + 1, self.nf, self.frame, self.nframes, path), end='')
             self.seek_time += 1/self.expect_fps
