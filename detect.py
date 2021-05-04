@@ -40,7 +40,10 @@ def detect(save_img=False):
     half = device.type != 'cpu'  # half precision only supported on CUDA
 
     # Load model
-    model = Darknet(cfg, imgsz).cuda()
+    if half:
+        model = Darknet(cfg, imgsz).cuda()
+    else:
+        model = Darknet(cfg, imgsz)
     try:
         model.load_state_dict(torch.load(weights[0], map_location=device)['model'])
     except:

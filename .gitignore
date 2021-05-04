@@ -1,0 +1,6 @@
+*.pyc
+*.weights
+
+.vscode
+
+unit_test/
