@@ -47,8 +47,13 @@ onnx.checker.check_model(onnx_model)
 
 
 # Check output
-ort_session = onnxruntime.InferenceSession(onnx_file_name)
-
+so = onnxruntime.SessionOptions()
+# https://github.com/microsoft/onnxruntime/issues/2803#issuecomment-573380483
+so.graph_optimization_level = onnxruntime.GraphOptimizationLevel.ORT_ENABLE_ALL
+so.intra_op_num_threads = 1
+ort_session = onnxruntime.InferenceSession(onnx_file_name, so)
+ort_session.set_providers(['OpenVINOExecutionProvider'], [
+                          {'device_type': 'CPU_FP32'}])
 
 def to_numpy(x):
     # return x.detach().cpu().numpy() if x.requires_grad else x.cpu().numpy()
