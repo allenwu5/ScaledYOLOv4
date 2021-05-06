@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.166.1/containers/ubuntu
 {
-	"name": "Ubuntu",
+	"name": "ScaledYOLOv4",
 	"build": {
 		"dockerfile": "../Dockerfile",
 		"context": "..",
@@ -16,10 +16,9 @@
 
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
+		"ms-toolsai.jupyter",
 		"ms-python.python",
-		"ms-python.vscode-pylance",
-		"donjayamanne.githistory",
-		"eamodio.gitlens"
+		"ms-python.vscode-pylance"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

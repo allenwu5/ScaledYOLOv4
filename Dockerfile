@@ -1,16 +1,17 @@
-# https://github.com/WongKinYiu/ScaledYOLOv4
-FROM local/pytorch
+FROM openvino/ubuntu20_dev:2021.3
 
-WORKDIR /ScaledYOLOv4
+USER root
 
-COPY requirements.txt .
-RUN --mount=type=cache,target=/root/.cache \
-    pip install -r requirements.txt
+# https://askubuntu.com/a/1013396
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get update
+RUN apt-get install -y software-properties-common
+RUN add-apt-repository ppa:deadsnakes/ppa
 
-# Please download weight first:
-#   https://github.com/WongKinYiu/ScaledYOLOv4/tree/yolov4-csp#yolov4-csp
-COPY yolov4-csp.weights .
-# COPY yolov4-tiny.weights .
+# Python3.7 for Tensorflow 1
+RUN apt-get install -y python3.7
+RUN /usr/bin/python3.7 -m pip install tensorflow-cpu==1.15 Pillow numpy==1.19
 
-# RUN useradd -m user
-# USER user
+# https://github.com/TNTWEN/OpenVINO-YOLOV4/
+# yolov4-tiny.weights to frozen_darknet_yolov4_model.pb
+# OpenVINO-YOLOV4/convert_weights_pb.py --class_names=data/coco.names --weights_file=yolov4-tiny.weights --data_format=NHWC --tiny --size=608 
