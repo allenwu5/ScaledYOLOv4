@@ -113,7 +113,10 @@ def detect(save_img=False):
         # (1, 3, 384, 640)
         ort_inputs = {ort_session.get_inputs()[0].name: img}
         ort_outs = ort_session.run(None, ort_inputs)
-        # (1, 15120, 85)
+        # (1, 15120, 85), 
+        # (1, 3, 48, 80, 85), 
+        # (1, 3, 24, 40, 85), 
+        # (1, 3, 12, 20, 85)
         ort_outs = torch.from_numpy(ort_outs[0])
 
         # Apply NMS
