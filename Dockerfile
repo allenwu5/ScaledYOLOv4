@@ -12,7 +12,7 @@ RUN add-apt-repository ppa:deadsnakes/ppa
 RUN apt-get install -y python3.7
 RUN /usr/bin/python3.7 -m pip install tensorflow-cpu==1.15 Pillow numpy==1.19
 
-RUN apt-get install -y git
+RUN apt-get install -y git ffmpeg
 
 # https://github.com/TNTWEN/OpenVINO-YOLOV4/
 # yolov4-tiny.weights to frozen_darknet_yolov4_model.pb
